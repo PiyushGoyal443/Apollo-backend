@@ -1,10 +1,33 @@
+<!--
+
+REFERRED_FROM: https://codepen.io/aaronvanston/pen/yNYOXR
+
+-->
+
+<!DOCTYPE html>
 <html>
-    <head></head>
-    <body>
-        <p>
-            Modify this page to include a form where users can submit an XML file.
-            When they click on the submit button, the XML file should be converted into JSON and
-            returned to the user.
-        </p>
-    </body>
+{% load static %}
+<head>
+  <title>XML to JSON Converter</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'xml_converter/base.css' %}" />
+</head>
+<body>
+  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript" src="{% static 'xml_converter/base.js' %}"></script>
+  <div class="file-upload">
+    <div class="xml-upload-wrap">
+      <input class="file-upload-input" type='file' onchange="makeRequest(this);" accept="text/xml" />
+      {% csrf_token %}
+      <div class="drag-text">
+        <h3>Drag and drop a file or select add XML</h3>
+      </div>
+    </div>
+    <div class="file-upload-content">
+      <div class="xml-title-wrap">
+        <pre class="xml-to-json-result"></pre>
+        <button type="button" onclick="removeUpload()" class="remove-xml">Remove Uploaded XML</button>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
