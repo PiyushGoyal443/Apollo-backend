@@ -11,6 +11,21 @@ def validate_file_extension(value):
         raise ValidationError(u'File not supported!')
 
 
+def parse(dict_obj):
+    if isinstance(dict_obj, dict):
+        new_list = []
+        for k, v in dict_obj.items():
+            if isinstance(v, dict):
+                new_list.append({k: parse(v)})
+            elif isinstance(v, list):
+                for i in v:
+                    new_list.append({k: parse(i)})
+            else:
+                new_list.append({k: v})
+        return new_list
+
+
 def convert_xml_to_json(content):
     data_dict = xmltodict.parse(content)
-    return data_dict
+    data_dict = parse(data_dict["Root"])
+    return {"Root": data_dict}
