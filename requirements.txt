@@ -1,2 +1,4 @@
 django
 django-rest-framework
+djangorestframework~=3.13.1
+xmltodict~=0.13.0
