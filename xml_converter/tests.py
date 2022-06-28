@@ -7,13 +7,16 @@ TEST_DIR = Path(__file__).parent / Path('test_files')
 
 
 class XMLConversionTestCase(TestCase):
+
+    maxDiff = None
+
     def setUp(self):
         self.client = Client()
 
     def test_connected_convert_empty_document(self):
         with (TEST_DIR / Path('empty.xml')).open() as fp:
             response = self.client.post('/connected/', {
-                'file': fp,
+                'xml_file': fp,
             })
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json(), {
@@ -23,7 +26,7 @@ class XMLConversionTestCase(TestCase):
     def test_api_convert_empty_document(self):
         with (TEST_DIR / Path('empty.xml')).open() as fp:
             response = self.client.post('/api/converter/convert/', {
-                'file': fp,
+                'xml_file': fp,
             })
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json(), {
@@ -33,7 +36,7 @@ class XMLConversionTestCase(TestCase):
     def test_connected_convert_addresses(self):
         with (TEST_DIR / Path('addresses.xml')).open() as fp:
             response = self.client.post('/connected/', {
-                'file': fp,
+                'xml_file': fp,
             })
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json(), {
